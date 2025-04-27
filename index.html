@@ -8,6 +8,7 @@
   <meta property="og:title" content="Digital Time Capsule">
   <meta property="og:description" content="Send a message to your future self. A simple act of magic.">
   <link rel="stylesheet" href="styles.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -17,7 +18,8 @@
   <h1>Send a Letter to Your Future Self</h1>
   <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
 
-  <form action="https://formspree.io/f/mrbqbobg" method="POST" class="form">
+  <!-- Form submission using Formsubmit -->
+  <form action="https://formsubmit.co/el/zivagu" method="POST" class="form">
     <textarea name="message" placeholder="Write your message here..." required></textarea>
 
     <input type="email" name="email" placeholder="Your Email Address" required>
@@ -26,12 +28,12 @@
     <input type="date" name="delivery_date" required>
 
     <button type="submit" class="btn">Send to the Future</button>
-  </form>
-</div>
 
-<!-- Google Adsense -->
-<div class="adsbygoogle">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519" crossorigin="anonymous"></script>
+    <!-- Redirect after submission (Optional) -->
+    <input type="hidden" name="_redirect" value="https://yourwebsite.com/thank-you">
+  </form>
+
+  <!-- Ads code -->
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="ca-pub-4362866496862519"
@@ -45,24 +47,6 @@
 <footer>
   <p>Made with love for dreamers.</p>
 </footer>
-
-<!-- Cookie Consent -->
-<div class="cookie-consent" id="cookieConsent">
-  <p>We use cookies to improve your experience on our site. By using our site, you consent to our use of cookies. <button onclick="acceptCookies()">I Accept</button></p>
-</div>
-
-<script>
-  // Cookie Consent Handling
-  function acceptCookies() {
-    document.getElementById("cookieConsent").style.display = "none";
-    localStorage.setItem("cookiesAccepted", "true");
-  }
-
-  // Check if cookies were already accepted
-  if (localStorage.getItem("cookiesAccepted") === "true") {
-    document.getElementById("cookieConsent").style.display = "none";
-  }
-</script>
 
 </body>
 </html>
