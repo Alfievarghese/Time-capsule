@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,19 +11,19 @@
   <!-- External CSS -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519" crossorigin="anonymous"></script>
-
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js"></script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
 
   <div class="container">
     <img src="logo.png" alt="Digital Time Capsule Logo" class="logo">
-
     <h1>Send a Letter to Your Future Self</h1>
     <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
 
@@ -68,7 +67,7 @@
 
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    const db = firebase.firestore(app);
 
     // Handle Form Submission
     document.getElementById('timeCapsuleForm').addEventListener('submit', function (e) {
@@ -79,16 +78,27 @@
       const email = document.getElementById('email').value;
       const deliveryDate = document.getElementById('delivery_date').value;
 
+      // Validate fields before submission
+      if (!message || !email || !deliveryDate) {
+        alert("Please fill all fields.");
+        return;
+      }
+
       // Add data to Firestore
       db.collection('timeCapsules').add({
         message: message,
         email: email,
         deliveryDate: deliveryDate,
         timestamp: new Date()
-      }).then(() => {
-        alert('Your message has been saved!');
-      }).catch((error) => {
+      })
+      .then(() => {
+        alert('Your message has been saved successfully!');
+        // Reset form after submission
+        document.getElementById('timeCapsuleForm').reset();
+      })
+      .catch((error) => {
         console.error('Error adding document: ', error);
+        alert('Error submitting your message.');
       });
     });
 
@@ -97,6 +107,7 @@
       document.querySelector('.cookie-consent').style.display = 'none';
     }
   </script>
+
 </body>
 
 </html>
