@@ -7,64 +7,62 @@
   <meta name="description" content="Write a message to your future self and have it emailed on your chosen date!">
   <meta property="og:title" content="Digital Time Capsule">
   <meta property="og:description" content="Send a message to your future self. A simple act of magic.">
-  <link rel="stylesheet" href="styles.css"> <!-- Ensure this file exists -->
-  <!-- Google Ads Script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Cookie Consent Banner -->
-  <div id="cookieConsent" class="cookie-consent">
-    <p>We use cookies to enhance your experience. By continuing to visit this site, you agree to our use of cookies. <a href="#">Learn More</a></p>
-    <button id="acceptCookies" class="btn">I Accept</button>
-  </div>
+<div class="container">
+  <img src="logo.png" alt="Digital Time Capsule Logo" class="logo">
 
-  <div class="container">
-    <img src="logo.png" alt="Digital Time Capsule Logo" class="logo"> <!-- Ensure logo.png exists -->
+  <h1>Send a Letter to Your Future Self</h1>
+  <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
 
-    <h1>Send a Letter to Your Future Self</h1>
-    <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
+  <form action="https://formspree.io/f/mrbqbobg" method="POST" class="form">
+    <textarea name="message" placeholder="Write your message here..." required></textarea>
 
-    <!-- Form starts here -->
-    <form action="https://formspree.io/f/mrbqbobg" method="POST" class="form">
-      <!-- Message text area -->
-      <textarea name="message" placeholder="Write your message here..." required></textarea>
+    <input type="email" name="email" placeholder="Your Email Address" required>
 
-      <!-- Email input field -->
-      <input type="email" name="email" placeholder="Your Email Address" required>
+    <label for="delivery_date" class="label">Choose Delivery Date:</label>
+    <input type="date" name="delivery_date" required>
 
-      <!-- Delivery Date -->
-      <label for="delivery_date" class="label">Choose Delivery Date:</label>
-      <input type="date" name="delivery_date" required>
+    <button type="submit" class="btn">Send to the Future</button>
+  </form>
+</div>
 
-      <!-- Submit button -->
-      <button type="submit" class="btn">Send to the Future</button>
-    </form>
-    <!-- Form ends here -->
-
-    <!-- Google Ad -->
-    <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-4362866496862519"
-      data-ad-slot="1234567890"
-      data-ad-format="auto"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-
-  </div>
-
-  <footer>
-    <p>Made with love for dreamers.</p>
-  </footer>
-
-  <!-- Cookie Consent Script -->
+<!-- Google Adsense -->
+<div class="adsbygoogle">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519" crossorigin="anonymous"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4362866496862519"
+       data-ad-slot="1234567890"
+       data-ad-format="auto"></ins>
   <script>
-    // Hide the cookie consent banner after clicking "I Accept"
-    document.getElementById('acceptCookies').onclick = function() {
-      document.getElementById('cookieConsent').style.display = 'none';
-    }
+     (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
+</div>
+
+<footer>
+  <p>Made with love for dreamers.</p>
+</footer>
+
+<!-- Cookie Consent -->
+<div class="cookie-consent" id="cookieConsent">
+  <p>We use cookies to improve your experience on our site. By using our site, you consent to our use of cookies. <button onclick="acceptCookies()">I Accept</button></p>
+</div>
+
+<script>
+  // Cookie Consent Handling
+  function acceptCookies() {
+    document.getElementById("cookieConsent").style.display = "none";
+    localStorage.setItem("cookiesAccepted", "true");
+  }
+
+  // Check if cookies were already accepted
+  if (localStorage.getItem("cookiesAccepted") === "true") {
+    document.getElementById("cookieConsent").style.display = "none";
+  }
+</script>
 
 </body>
-          </html>
+</html>
