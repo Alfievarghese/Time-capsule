@@ -1,7 +1,7 @@
 /* Basic Body Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7; /* Light gray background */
+    background-color: #f1f1f1; /* Light background */
     color: #333; /* Dark text for readability */
     margin: 0;
     padding: 0;
@@ -9,10 +9,11 @@ body {
 
 /* Header Styling */
 header {
-    background-color: #4CAF50; /* Fresh green color */
+    background-color: #2a9d8f; /* Soft teal green for a calm vibe */
     color: white;
-    padding: 40px 20px;
+    padding: 30px 20px;
     text-align: center;
+    border-bottom: 5px solid #264653; /* Darker teal border for contrast */
 }
 
 h1 {
@@ -23,6 +24,13 @@ h1 {
 
 p {
     font-size: 1.2rem;
+}
+
+/* Logo Styling */
+.logo {
+    width: 150px; /* Adjust logo size to fit well */
+    height: auto;
+    margin: 20px 0;
 }
 
 /* Main Section Styling */
@@ -50,11 +58,11 @@ input[type="text"], textarea, input[type="date"], button {
 }
 
 input[type="text"], textarea, input[type="date"] {
-    background-color: #f0f0f0; /* Light gray input fields */
+    background-color: #eaeaea; /* Soft light gray for input fields */
 }
 
 button {
-    background-color: #4CAF50; /* Green button */
+    background-color: #264653; /* Dark teal for the button */
     color: white;
     cursor: pointer;
     border: none;
@@ -62,7 +70,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049; /* Slightly darker green on hover */
+    background-color: #1f3d3a; /* Darker teal on hover */
 }
 
 /* AdSense Ad Styling */
@@ -74,7 +82,7 @@ button:hover {
 
 /* Footer Styling */
 footer {
-    background-color: #333; /* Dark footer */
+    background-color: #264653; /* Dark teal for footer */
     color: white;
     text-align: center;
     padding: 15px;
