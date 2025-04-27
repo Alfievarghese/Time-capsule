@@ -7,63 +7,116 @@
   <meta name="description" content="Write a message to your future self and have it emailed on your chosen date!">
   <meta property="og:title" content="Digital Time Capsule">
   <meta property="og:description" content="Send a message to your future self. A simple act of magic.">
+
+  <!-- Link to External CSS -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519" crossorigin="anonymous"></script>
 
-  <!-- Cookie Consent Script -->
-  <script>
-    window.onload = function() {
-      if (!localStorage.getItem("cookies_accepted")) {
-        document.getElementById("cookieConsent").style.display = "block";
-      }
-    };
-
-    function acceptCookies() {
-      localStorage.setItem("cookies_accepted", "true");
-      document.getElementById("cookieConsent").style.display = "none";
-    }
-  </script>
-
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
 
-<!-- Cookie Consent Banner -->
-<div id="cookieConsent" style="display:none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; text-align: center; padding: 10px;">
-  <p>We use cookies to improve your experience. By continuing to browse this site, you consent to our use of cookies. <button onclick="acceptCookies()" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer;">Accept</button></p>
-</div>
+  <!-- Main Content -->
+  <div class="container">
+    <img src="logo.png" alt="Digital Time Capsule Logo" class="logo">
+    
+    <h1>Send a Letter to Your Future Self</h1>
+    <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
 
-<div class="container">
-  <img src="logo.png" alt="Digital Time Capsule Logo" class="logo">
+    <!-- Form to submit the message -->
+    <form id="timeCapsuleForm" class="form">
+      <textarea name="message" placeholder="Write your message here..." required></textarea>
 
-  <h1>Send a Letter to Your Future Self</h1>
-  <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
+      <input type="email" name="email" placeholder="Your Email Address" required>
 
-  <!-- Form submission using Getform -->
-  <form action="https://getform.io/f/bzywvpea" method="POST" class="form">
-    <textarea name="message" placeholder="Write your message here..." required></textarea>
+      <label for="delivery_date" class="label">Choose Delivery Date:</label>
+      <input type="date" name="delivery_date" required>
 
-    <input type="email" name="email" placeholder="Your Email Address" required>
+      <button type="submit" class="btn">Send to the Future</button>
+    </form>
 
-    <label for="delivery_date" class="label">Choose Delivery Date:</label>
-    <input type="date" name="delivery_date" required>
+    <!-- Google AdSense Ad Block -->
+    <div class="ad-container">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4362866496862519"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
 
-    <button type="submit" class="btn">Send to the Future</button>
-  </form>
+  </div>
 
-  <!-- Adsense Ad Slot -->
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-4362866496862519"
-       data-ad-slot="1234567890"
-       data-ad-format="auto"></ins>
+  <!-- Footer Section -->
+  <footer>
+    <p>Made with love for dreamers.</p>
+  </footer>
+
+  <!-- Cookie Consent -->
+  <div id="cookieConsent" class="cookie-consent">
+    <p>This website uses cookies to ensure you get the best experience. <button id="acceptCookies">Accept</button></p>
+  </div>
+
   <script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAA8OyVBZUqNQbMtndtHdGW7CUd2Ls4KZQ",
+      authDomain: "time-capsule-86b3a.firebaseapp.com",
+      projectId: "time-capsule-86b3a",
+      storageBucket: "time-capsule-86b3a.appspot.com",
+      messagingSenderId: "428621792032",
+      appId: "1:428621792032:web:22bd98b187444e201e0d45"
+    };
 
-<footer>
-  <p>Made with love for dreamers.</p>
-</footer>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Form submit handling
+    const form = document.getElementById('timeCapsuleForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const message = form.message.value;
+      const email = form.email.value;
+      const delivery_date = form.delivery_date.value;
+
+      try {
+        await db.collection('messages').add({
+          message,
+          email,
+          delivery_date,
+          submitted_at: new Date().toISOString()
+        });
+        alert('Your letter has been saved for the future!');
+        form.reset();
+      } catch (error) {
+        console.error('Error saving message:', error);
+        alert('Something went wrong. Please try again.');
+      }
+    });
+
+    // Cookie Consent
+    const cookieBanner = document.getElementById('cookieConsent');
+    const acceptBtn = document.getElementById('acceptCookies');
+
+    if (!localStorage.getItem('cookiesAccepted')) {
+      cookieBanner.style.display = 'block';
+    }
+
+    acceptBtn.onclick = () => {
+      localStorage.setItem('cookiesAccepted', 'yes');
+      cookieBanner.style.display = 'none';
+    };
+  </script>
 
 </body>
 </html>
