@@ -1,152 +1,108 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* General body styling */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
-  line-height: 1.6;
-  padding: 0;
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ff4b2b, #ff416c); /* Red to dark red gradient */
+  color: white;
 }
 
-h1, p {
-  text-align: center;
-}
-
-/* Container for the entire page content */
+/* Container */
 .container {
-  width: 80%;
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Logo styling */
-.logo {
-  width: 150px;
-  display: block;
+  max-width: 1200px;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* Main header */
+/* Logo */
+.logo {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 150px;
+}
+
+/* Heading */
 h1 {
+  color: #fff;
+  text-align: center;
   font-size: 2.5rem;
-  color: #2d3b4f;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 /* Subtitle */
 .subtitle {
   font-size: 1.2rem;
-  color: #666;
+  text-align: center;
   margin-bottom: 20px;
+  color: #ddd;
 }
 
-/* Form and its styling */
+/* Form Styling */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-}
-
-textarea, input[type="email"], input[type="date"] {
-  width: 100%;
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  background-color: #f9f9f9;
-  transition: all 0.3s ease;
-}
-
-textarea:focus, input[type="email"]:focus, input[type="date"]:focus {
-  border-color: #4caf50;
-  background-color: #fff;
+  align-items: center;
 }
 
 textarea {
-  height: 150px;
-  resize: none;
+  width: 80%;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  color: #333;
+}
+
+input[type="email"],
+input[type="date"] {
+  width: 80%;
+  padding: 12px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+  color: #333;
 }
 
 button {
-  padding: 15px;
-  background-color: #4caf50;
-  color: #fff;
-  font-size: 1.2rem;
-  border: none;
+  width: 80%;
+  padding: 12px;
+  background-color: #ff416c; /* Matching button with gradient color */
+  color: white;
+  font-size: 1.1rem;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #ff4b2b; /* Lighter red on hover */
 }
 
-/* Google Ad Styling */
-.adsbygoogle {
-  margin-top: 30px;
-  text-align: center;
-}
-
-/* Cookie Consent */
-.cookie-consent {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #333;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-size: 1rem;
-  z-index: 1000;
-}
-
-.cookie-consent a {
-  color: #4caf50;
-  text-decoration: none;
-}
-
-.cookie-consent a:hover {
-  text-decoration: underline;
-}
-
-.cookie-consent button {
-  padding: 8px 16px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.cookie-consent button:hover {
-  background-color: #45a049;
-}
-
-/* Footer */
+/* Footer Styling */
 footer {
   text-align: center;
   margin-top: 30px;
-  padding: 10px;
-  background-color: #f1f1f1;
-  border-top: 1px solid #ddd;
+  font-size: 0.9rem;
+  color: #ddd;
 }
 
-footer p {
-  font-size: 1rem;
-  color: #888;
+/* Google Adsense Styling */
+.adsbygoogle {
+  width: 100%;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.adsbygoogle ins {
+  display: inline-block;
+  width: 100%;
+  max-width: 728px;
+  height: auto;
 }
