@@ -1,37 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Digital Time Capsule</title>
-  <meta name="description" content="Write a message to your future self and have it emailed on your chosen date!">
-  <meta property="og:title" content="Digital Time Capsule">
-  <meta property="og:description" content="Send a message to your future self. A simple act of magic.">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Capsule</title>
+    <!-- Google Adsense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4362866496862519"
+            crossorigin="anonymous"></script>
 </head>
 <body>
+    <header>
+        <h1>Welcome to the Time Capsule</h1>
+        <p>Your journey of memories starts here!</p>
+    </header>
 
-<div class="container">
-  <img src="logo.png" alt="Digital Time Capsule Logo" class="logo">
+    <!-- Main Content -->
+    <section>
+        <h2>Create Your Time Capsule</h2>
+        <form id="timeCapsuleForm">
+            <label for="name">Enter Your Name:</label>
+            <input type="text" id="name" name="name" required>
 
-  <h1>Send a Letter to Your Future Self</h1>
-  <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
+            <label for="message">Write a Message:</label>
+            <textarea id="message" name="message" required></textarea>
 
-  <form action="https://formspree.io/f/mrbqbobg" method="POST" class="form">
-    <textarea name="message" placeholder="Write your message here..." required></textarea>
+            <label for="date">Select Date to Open Capsule:</label>
+            <input type="date" id="date" name="date" required>
 
-    <input type="email" name="email" placeholder="Your Email Address" required>
+            <button type="submit">Create Capsule</button>
+        </form>
+    </section>
 
-    <label for="delivery_date" class="label">Choose Delivery Date:</label>
-    <input type="date" name="delivery_date" required>
+    <!-- AdSense Ad Unit -->
+    <section>
+        <h2>Check out our sponsored content:</h2>
+        <!-- AdSense Ad -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-4362866496862519"
+            data-ad-slot="XXXXXXXXXX"
+            data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </section>
 
-    <button type="submit" class="btn">Send to the Future</button>
-  </form>
-</div>
-
-<footer>
-  <p>Made with love for dreamers.</p>
-</footer>
-
+    <footer>
+        <p>&copy; 2025 Time Capsule. All rights reserved.</p>
+    </footer>
 </body>
 </html>
