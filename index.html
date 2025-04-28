@@ -3,101 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Time Capsule</title>
-
-  <!-- External CSS -->
+  <title>Digital Time Capsule</title>
+  <meta name="description" content="Write a message to your future self and have it emailed on your chosen date!">
+  <meta property="og:title" content="Digital Time Capsule">
+  <meta property="og:description" content="Send a message to your future self. A simple act of magic.">
+  
+  <!-- Link to external CSS -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Google Adsense (your pub id added) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2085022297063037" crossorigin="anonymous"></script>
+  <!-- Adsense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3089684029192245"
+     crossorigin="anonymous"></script>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-</head>
+  <!-- Firebase App -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-<body>
-
-  <div class="container">
-    <img src="your-logo.png" alt="Logo" class="logo">
-    <h1>Send a Message to the Future</h1>
-    <p class="subtitle">Write your message, select a date, and we'll send it to your future self!</p>
-
-    <form id="myForm" class="form">
-      <textarea name="message" placeholder="Write your message" required></textarea>
-      <input type="email" name="email" placeholder="Your Email Address" required>
-      <input type="date" name="delivery_date" required>
-      <button type="submit">Send to the Future</button>
-    </form>
-
-    <!-- AdSense Ad -->
-    <div class="adsbygoogle" style="margin-top: 30px;">
-      <ins class="adsbygoogle"
-          style="display:block"
-          data-ad-client="ca-pub-2085022297063037"
-          data-ad-slot="1234567890"
-          data-ad-format="auto"
-          data-full-width-responsive="true"></ins>
-    </div>
-
-    <footer>© 2025 Time Capsule. All rights reserved.</footer>
-  </div>
-
-  <!-- Cookie Consent -->
-  <div id="cookieConsent" class="cookie-consent">
-    <p>We use cookies to ensure you get the best experience on our website.</p>
-    <button id="acceptCookies">Accept</button>
-  </div>
-
-  <script>
-    // Cookie Consent
-    document.getElementById("acceptCookies").addEventListener("click", function() {
-      document.getElementById("cookieConsent").style.display = "none";
-      localStorage.setItem("cookiesAccepted", "true");
-    });
-    if (localStorage.getItem("cookiesAccepted")) {
-      document.getElementById("cookieConsent").style.display = "none";
-    }
-
-    // Firebase Config
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAA8OyVBZUqNQbMtndtHdGW7CUd2Ls4KZQ",
       authDomain: "time-capsule-86b3a.firebaseapp.com",
+      databaseURL: "https://time-capsule-86b3a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "time-capsule-86b3a",
-      storageBucket: "time-capsule-86b3a.appspot.com",
+      storageBucket: "time-capsule-86b3a.firebasestorage.app",
       messagingSenderId: "428621792032",
-      appId: "1:428621792032:web:22bd98b187444e201e0d45",
-      databaseURL: "https://time-capsule-86b3a-default-rtdb.firebaseio.com"
+      appId: "1:428621792032:web:22bd98b187444e201e0d45"
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-    // Form Submit Handler
-    document.getElementById("myForm").addEventListener("submit", function(e) {
+    // Form submission
+    window.handleSubmit = function(e) {
       e.preventDefault();
+      const message = document.getElementById('message').value;
+      const email = document.getElementById('email').value;
+      const deliveryDate = document.getElementById('deliveryDate').value;
 
-      const message = document.querySelector('textarea[name="message"]').value;
-      const email = document.querySelector('input[name="email"]').value;
-      const deliveryDate = document.querySelector('input[name="delivery_date"]').value;
-
-      database.ref('submissions').push({
+      push(ref(db, 'submissions/'), {
         message: message,
         email: email,
         deliveryDate: deliveryDate,
         timestamp: new Date().toISOString()
       })
       .then(() => {
-        alert('Message successfully sent!');
-        document.getElementById("myForm").reset();
+        alert('Successfully submitted to the Future!');
+        document.getElementById('capsuleForm').reset();
       })
       .catch((error) => {
         console.error('Error:', error);
-        alert('Failed to send. Try again.');
+        alert('Submission failed. Try again.');
       });
-    });
+    }
   </script>
+
+</head>
+
+<body>
+
+<div class="container">
+  <img src="logo.png" alt="Digital Time Capsule Logo" class="logo">
+
+  <h1>Send a Letter to Your Future Self</h1>
+  <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
+
+  <form id="capsuleForm" class="form" onsubmit="handleSubmit(event)">
+    <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+    <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+
+    <label for="deliveryDate" class="label">Choose Delivery Date:</label>
+    <input type="date" id="deliveryDate" name="delivery_date" required>
+
+    <button type="submit" class="btn">Send to the Future</button>
+  </form>
+
+  <!-- Adsense Block -->
+  <div class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-3089684029192245"
+       data-ad-slot="1234567890"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></div>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+</div>
+
+<!-- Cookie Consent -->
+<div class="cookie-consent" id="cookieConsent">
+  <p>We use cookies to ensure you get the best experience. <button onclick="acceptCookies()">Got it!</button></p>
+</div>
+
+<script>
+  function acceptCookies() {
+    document.getElementById('cookieConsent').style.display = 'none';
+  }
+</script>
+
+<footer>
+  <p>Made with love for dreamers.</p>
+</footer>
 
 </body>
 </html>
