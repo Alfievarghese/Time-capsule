@@ -1,4 +1,4 @@
-/* General Styles */
+/* Basic resets and box model */
 * {
   margin: 0;
   padding: 0;
@@ -7,104 +7,129 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f7f7f7;
   color: #333;
-  margin: 0;
-  padding: 0;
+}
+
+h1, h2 {
+  font-family: 'Roboto', sans-serif;
 }
 
 header {
-  background-color: #3e8e41;
-  color: white;
+  background-color: #2b3a42;
+  color: #fff;
   text-align: center;
-  padding: 20px;
+  padding: 20px 0;
 }
 
-h1 {
-  font-size: 2.5em;
+header h1 {
+  font-size: 3em;
   margin-bottom: 10px;
 }
 
-p {
+header p {
   font-size: 1.2em;
+  margin-top: 0;
 }
 
-/* Container Styles */
+/* Ad container styles */
+.ads-container {
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Main container layout */
 .container {
-  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 40px 10%;
 }
 
 .login-container,
 .message-container {
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  padding: 20px;
+  width: 45%;
 }
 
-input,
-button,
+h2 {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+
+input[type="email"],
+input[type="password"],
 textarea {
   width: 100%;
   padding: 10px;
-  font-size: 1em;
-  margin-bottom: 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  font-size: 1em;
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: #2b3a42;
   color: white;
-  cursor: pointer;
   border: none;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
+  background-color: #1f2a30;
+}
+
+/* Style the save message button */
+#saveMessageBtn {
+  background-color: #4CAF50;
+}
+
+#saveMessageBtn:hover {
   background-color: #45a049;
 }
 
+/* Styling for text area */
 textarea {
   height: 150px;
-  resize: none;
+  font-size: 1.1em;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* AdSense */
-.ads-container {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.adsbygoogle {
-  display: block;
-  margin: 10px auto;
-}
-
-/* Responsive Design */
+/* Responsive styling */
 @media (max-width: 768px) {
-  h1 {
-    font-size: 2em;
-  }
-
   .container {
-    padding: 15px;
+    flex-direction: column;
+    padding: 20px;
   }
 
   .login-container,
   .message-container {
-    padding: 15px;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
-  button,
-  input,
+  header h1 {
+    font-size: 2.5em;
+  }
+
+  header p {
+    font-size: 1em;
+  }
+
+  button {
+    font-size: 1em;
+  }
+
+  input[type="email"],
+  input[type="password"],
   textarea {
-    font-size: 0.9em;
+    font-size: 1em;
   }
 }
