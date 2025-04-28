@@ -148,9 +148,10 @@
       const user = getCookie("user");
 
       if (user) {
+        const date = new Date().toISOString(); // Current date in ISO format
         database.ref('messages/' + user).set({
           message: message,
-          timestamp: new Date().toISOString()
+          timestamp: date
         }).then(() => {
           alert("Message saved successfully!");
         }).catch(error => {
@@ -166,8 +167,14 @@
 
       if (user) {
         database.ref('messages/' + user).once('value', snapshot => {
-          const message = snapshot.val() ? snapshot.val().message : "No message found!";
-          alert("Your saved message: " + message);
+          const data = snapshot.val();
+          if (data) {
+            const message = data.message;
+            const timestamp = new Date(data.timestamp).toLocaleString();
+            alert("Your saved message: " + message + "\nSaved on: " + timestamp);
+          } else {
+            alert("No message found.");
+          }
         });
       } else {
         alert("Please log in to retrieve your message.");
