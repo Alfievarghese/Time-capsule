@@ -1,26 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Digital Time Capsule</title>
-  <meta name="description" content="Write a message to your future self and have it emailed on your chosen date!">
-  <meta property="og:title" content="Digital Time Capsule">
-  <meta property="og:description" content="Send a message to your future self. A simple act of magic.">
-  
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Capsule</title>
 
-  <!-- Adsense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3089684029192245"
-     crossorigin="anonymous"></script>
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 
-  <!-- Firebase App -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  <!-- AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
-    // Firebase config
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-XXXXXXX",  // Replace with your AdSense Client ID
+      enable_page_level_ads: true
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      width: 100%;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .ads-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Time Capsule</h1>
+    <p>Securely store your future memories!</p>
+  </header>
+
+  <!-- AdSense Ad Unit 1 (Above the content) -->
+  <div class="ads-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXX"  <!-- Replace with your AdSense Client ID -->
+         data-ad-slot="XXXXXXX"  <!-- Replace with your Ad Slot ID -->
+         data-ad-format="auto"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <div class="container">
+    <h2>Login to Your Time Capsule</h2>
+    <input type="email" id="email" placeholder="Enter your email">
+    <input type="password" id="password" placeholder="Enter your password">
+    <button id="loginBtn">Login</button>
+    <button id="signupBtn">Sign Up</button>
+
+    <h2>Store a Message for the Future</h2>
+    <textarea id="message" placeholder="Write a message for the future..."></textarea>
+    <button id="saveMessageBtn">Save Message</button>
+
+    <h2>Retrieve Your Message</h2>
+    <button id="retrieveMessageBtn">Retrieve Message</button>
+  </div>
+
+  <!-- AdSense Ad Unit 2 (Below the content) -->
+  <div class="ads-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXX"  <!-- Replace with your AdSense Client ID -->
+         data-ad-slot="XXXXXXX"  <!-- Replace with your Ad Slot ID -->
+         data-ad-format="auto"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
+  <script>
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAA8OyVBZUqNQbMtndtHdGW7CUd2Ls4KZQ",
       authDomain: "time-capsule-86b3a.firebaseapp.com",
@@ -32,81 +127,92 @@
     };
 
     // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const database = firebase.database();
 
-    // Form submission
-    window.handleSubmit = function(e) {
-      e.preventDefault();
-      const message = document.getElementById('message').value;
-      const email = document.getElementById('email').value;
-      const deliveryDate = document.getElementById('deliveryDate').value;
-
-      push(ref(db, 'submissions/'), {
-        message: message,
-        email: email,
-        deliveryDate: deliveryDate,
-        timestamp: new Date().toISOString()
-      })
-      .then(() => {
-        alert('Successfully submitted to the Future!');
-        document.getElementById('capsuleForm').reset();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Submission failed. Try again.');
-      });
+    // Cookie handling functions
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
     }
+
+    function getCookie(name) {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    function eraseCookie(name) {
+      document.cookie = name + '=; Max-Age=-99999999; path=/';
+    }
+
+    // Event listeners
+    document.getElementById("loginBtn").addEventListener("click", function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("Login successful!");
+          setCookie("user", email, 7);  // Store email in cookie for 7 days
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    });
+
+    document.getElementById("signupBtn").addEventListener("click", function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          alert("Account created successfully!");
+          setCookie("user", email, 7);  // Store email in cookie for 7 days
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    });
+
+    document.getElementById("saveMessageBtn").addEventListener("click", function () {
+      const message = document.getElementById("message").value;
+      const user = getCookie("user");
+
+      if (user) {
+        database.ref('messages/' + user).set({
+          message: message,
+          timestamp: new Date().toISOString()
+        }).then(() => {
+          alert("Message saved successfully!");
+        }).catch(error => {
+          alert(error.message);
+        });
+      } else {
+        alert("Please log in to save your message.");
+      }
+    });
+
+    document.getElementById("retrieveMessageBtn").addEventListener("click", function () {
+      const user = getCookie("user");
+
+      if (user) {
+        database.ref('messages/' + user).once('value', snapshot => {
+          const message = snapshot.val() ? snapshot.val().message : "No message found!";
+          alert("Your saved message: " + message);
+        });
+      } else {
+        alert("Please log in to retrieve your message.");
+      }
+    });
   </script>
-
-</head>
-
-<body>
-
-<div class="container">
-  <img src="logo.png" alt="Digital Time Capsule Logo" class="logo">
-
-  <h1>Send a Letter to Your Future Self</h1>
-  <p class="subtitle">Select any future date. Write from the heart. We'll deliver it.</p>
-
-  <form id="capsuleForm" class="form" onsubmit="handleSubmit(event)">
-    <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
-
-    <input type="email" id="email" name="email" placeholder="Your Email Address" required>
-
-    <label for="deliveryDate" class="label">Choose Delivery Date:</label>
-    <input type="date" id="deliveryDate" name="delivery_date" required>
-
-    <button type="submit" class="btn">Send to the Future</button>
-  </form>
-
-  <!-- Adsense Block -->
-  <div class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-3089684029192245"
-       data-ad-slot="1234567890"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></div>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-
-</div>
-
-<!-- Cookie Consent -->
-<div class="cookie-consent" id="cookieConsent">
-  <p>We use cookies to ensure you get the best experience. <button onclick="acceptCookies()">Got it!</button></p>
-</div>
-
-<script>
-  function acceptCookies() {
-    document.getElementById('cookieConsent').style.display = 'none';
-  }
-</script>
-
-<footer>
-  <p>Made with love for dreamers.</p>
-</footer>
-
 </body>
+
 </html>
